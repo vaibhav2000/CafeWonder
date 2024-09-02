@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)https://getbootstrap.com/docs/4.0/examples/starter-template/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+</head>
+<body>
+		
+		<div th:fragment="header" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow fixed-top">
+			<h5 class="my-0 mr-md-auto font-weight-normal">
+				<a style="text-decoration:none" href="/home">CafeWonder</a>
+			</h5>
+			
+			
+			<nav class="my-2 my-md-0 mr-md-3">
+
+				<div sec:authorize="isAuthenticated()">
+					<a class="p-2 btn btn-outline-dark" href="/user/profile"><span sec:authentication="name"></span></a>
+					<a class="p-2 btn btn-outline-dark" href="/logout">Logout</a>
+				</div>
+				<div sec:authorize="isAnonymous()">
+					<a class="p-2 btn btn-outline-dark" href="/user/register">Sign Up</a>
+					<a class="p-2 btn btn-outline-dark" href="/user/login">Login</a>
+				</div>
+
+			</nav>
+		</div>
+		
+	</body>
+</html>

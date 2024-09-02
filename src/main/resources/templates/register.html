@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)https://getbootstrap.com/docs/4.0/examples/starter-template/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>CafeWonder</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+
+	
+	<link rel="stylesheet" 	type="text/css" th:href="@{/css/starter-template.css}" />	
+	<link rel="stylesheet" 	type="text/css" th:href="@{/css/bootstrap.min.css}" />
+
+  </head>
+
+  <body>
+
+	<div th:insert="template.html :: header"></div>
+
+
+    <main role="main" class="container">
+
+      <div class="starter-template">
+        <h1>Registration Page</h1>
+        <p class="lead">Please enter your details below</p>
+
+          <form action="#" th:action="@{/user/register}" th:object="${passedUser}" method="post">
+			
+			<div class="form-row p-2">
+			  <div class="col-md-6 mx-auto">				
+			    <input type="text" th:field="*{firstname}" class="form-control" placeholder="First name">
+				<div class="text-danger">
+					<td th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></td>
+				</div>
+			  </div>			
+			</div>	
+			<div class="form-row p-2">
+			  <div class="col-md-6 mx-auto">				
+			    <input type="text" th:field="*{lastname}" class="form-control" placeholder="Last name">
+				<div class="text-danger">
+					<td th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></td>
+				</div>				
+			  </div>			
+			</div>	
+			<div class="form-row p-2">
+			  <div class="col-md-6 mx-auto">				
+			    <input type="text" th:field="*{username}" class="form-control" placeholder="Username">
+				<div class="text-danger">
+					<td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
+				</div>				
+			  </div>			
+			</div>	
+			<div class="form-row p-2">
+			  <div class="col-md-6 mx-auto">				
+			    <input type="text" th:field="*{email}" class="form-control" placeholder="Email">
+				<div class="text-danger">
+					<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+				</div>
+			  </div>			
+			</div>	
+			<div class="form-row p-2">
+			  <div class="col-md-6 mx-auto">				
+			    <input type="text" th:field="*{password}" class="form-control" placeholder="Password">
+				<div class="text-danger">
+					<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+				</div>
+			  </div>			
+			</div>	
+			<div class="form-row p-2">
+			  <div class="col-md-6 mx-auto">				
+			    <input type="text" th:field="*{phone}" class="form-control" placeholder="Phone No.">
+				<div class="text-danger">
+					<td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></td>
+				</div>  
+				</div>			
+			</div>	
+			
+			<button type="submit" class="btn btn-outline-dark">Register</button>
+								  
+          </form>
+		  </div>
+
+      </div>
+
+      
+
+    </main><!-- /.container -->
+
+  
+
+</body></html>
