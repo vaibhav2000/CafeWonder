@@ -1,11 +1,8 @@
 package com.cafe.CafeWonder.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name="cake")
@@ -20,7 +17,11 @@ public class Cake {
 	private String description;
 	private int calories;
 	private int price;
-	
+
+	@ManyToMany
+	@JoinTable(name = "User_Cake",joinColumns = {@JoinColumn(name="cakeId")},inverseJoinColumns = {@JoinColumn(name = "userId")})
+	private List<User> userList;
+
 	public Cake()
 	{
 		
@@ -101,6 +102,12 @@ public class Cake {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
 
+	public List<User> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
+	}
 }

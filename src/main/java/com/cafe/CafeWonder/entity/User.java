@@ -3,6 +3,8 @@ package com.cafe.CafeWonder.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="user")
 public class User {
@@ -20,6 +22,10 @@ public class User {
     private String phone;
     private String role;
     private boolean active;
+
+	@ManyToMany(mappedBy = "userList")
+	private List<Cake> cakeList;
+
     
     public User()
     {
@@ -82,14 +88,13 @@ public class User {
 		this.active = active;
 	}
 
-
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", firstname=" + firstname + ", lastname=" + lastname + ", username="
-				+ username + ", email=" + email + ", password=" + password + ", phone=" + phone + ", role=" + role
-				+ ", active=" + active + "]";
+	public List<Cake> getCakeList() {
+		return cakeList;
 	}
-	
-	
+
+	public void setCakeList(List<Cake> cakeList) {
+		this.cakeList = cakeList;
+	}
+
 
 }

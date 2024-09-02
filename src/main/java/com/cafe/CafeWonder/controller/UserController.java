@@ -39,12 +39,12 @@ public class UserController {
     @GetMapping("/register")
     public String registerUserget(Model model)
     {
-        model.addAttribute("passedUser",new UserDTO());
+        model.addAttribute("user",new UserDTO());
         return "register.html";
     }
 
     @PostMapping("/register")
-    public String registerUserpost(@ModelAttribute("passedUser") UserDTO userDTO, BindingResult result)
+    public String registerUserpost(@ModelAttribute("user") UserDTO userDTO, BindingResult result)
     {
     
     	result = validator.validateUser(result,userDTO);
@@ -75,6 +75,13 @@ public class UserController {
     {
     	System.out.println("IN THE LOGIN GET PAGE");	
     	return "login.html";
+    }
+
+    @GetMapping("/profile")
+    public String userProfile(Model model)
+    {
+        model.addAttribute("user",userService.getLoggedInUser());
+        return "userProfile.html";
     }
 
 }

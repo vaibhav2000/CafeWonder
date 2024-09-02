@@ -18,14 +18,21 @@ public class CakeService {
 	@Autowired
 	private UserService userService;
 
-	public void addCake(Cake cake)
+	public void addCake(Cake c)
 	{
 		User user = userService.getLoggedInUser();
 
 		if(user == null)
 			return;
 
-		cakeRepository.save(cake);
+		c.getUserList().add(user);
+
+		cakeRepository.save(c);
+	}
+
+	public Cake getCake(Long cakeId)
+	{
+		return cakeRepository.findById(cakeId).get();
 	}
 
 	public List<Cake> getAllCakes()
