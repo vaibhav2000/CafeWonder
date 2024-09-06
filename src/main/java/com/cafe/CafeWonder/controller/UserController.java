@@ -8,12 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.cafe.CafeWonder.service.CakeService;
 import com.cafe.CafeWonder.service.UserService;
-import com.cafe.CafeWonder.validator.ICustomValidator;
+import com.cafe.CafeWonder.util.validator.ICustomValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

@@ -46,7 +46,9 @@ public class WebSecurityConfig {
                 			.requestMatchers("/css/**","/images/**").permitAll()
                 			.anyRequest().authenticated())
         .formLogin(login -> login.usernameParameter("username").defaultSuccessUrl("/home", true).permitAll())
-        .logout(logout -> logout.logoutSuccessUrl("/home").permitAll())   ;
+                .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecret").tokenValiditySeconds(900))
+                .logout(logout -> logout.logoutSuccessUrl("/home").permitAll());
+
         
         return http.build();
     }

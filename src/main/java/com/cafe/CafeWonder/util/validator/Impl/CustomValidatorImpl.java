@@ -1,10 +1,10 @@
-package com.cafe.CafeWonder.validator.Impl;
+package com.cafe.CafeWonder.util.validator.Impl;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import com.cafe.CafeWonder.dto.UserDTO;
-import com.cafe.CafeWonder.validator.ICustomValidator;
+import com.cafe.CafeWonder.util.validator.ICustomValidator;
 
 @Component
 public class CustomValidatorImpl implements ICustomValidator{

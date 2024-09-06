@@ -6,7 +6,7 @@
 <head>
 </head>
 <body>
-		
+
 		<div th:fragment="header" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow fixed-top">
 			<h5 class="my-0 mr-md-auto font-weight-normal">
 				<a style="text-decoration:none" href="/home">CafeWonder</a>
@@ -15,8 +15,12 @@
 			
 			<nav class="my-2 my-md-0 mr-md-3">
 
-				<div sec:authorize="isAuthenticated()">
+				<div sec:authorize="hasRole('USER')">
 					<a class="p-2 btn btn-outline-dark" href="/user/profile"><span sec:authentication="name"></span></a>
+					<a class="p-2 btn btn-outline-dark" href="/logout">Logout</a>
+				</div>
+				<div sec:authorize="hasRole('ADMIN')">
+					<a class="p-2 btn btn-outline-dark" href="/cake/add">Add Cake</a>
 					<a class="p-2 btn btn-outline-dark" href="/logout">Logout</a>
 				</div>
 				<div sec:authorize="isAnonymous()">

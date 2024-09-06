@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)https://getbootstrap.com/docs/4.0/examples/starter-template/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" th:href="@{/images/favicon.png}" >
+
+    <title>CafeWonder</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+    <link rel="stylesheet" 	type="text/css" th:href="@{/css/starter-template.css}" />
+    <link rel="stylesheet" 	type="text/css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+
+<div th:insert="~{template.html :: header}"></div>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <h1>Add new cake</h1>
+        <p class="lead">Please enter the details of your new cake</p>
+
+        <form action="#" th:action="@{/cake/add}" method="post" enctype="multipart/form-data">
+
+            <div class="form-row p-2">
+                <div class="col-md-6 mx-auto">
+                    <input type="text" name="name" class="form-control" placeholder="Name" required>
+                </div>
+            </div>
+            <div class="form-row p-2">
+                <div class="col-md-6 mx-auto">
+                    <input type="text" name="description" class="form-control" placeholder="description" required>
+                </div>
+            </div>
+            <div class="form-row p-2">
+                <div class="col-md-6 mx-auto">
+                    <input type="number" name="calories" class="form-control" placeholder="calories" required>
+                </div>
+            </div>
+            <div class="form-row p-2">
+                <div class="col-md-6 mx-auto">
+
+                    <input type="number" name="price" class="form-control" placeholder="price" required>
+                </div>
+            </div>
+
+            <div class="form-row p-2">
+                <div class="col-md-6 mx-auto">
+                    <input type="file" th:name="picture" accept="image/*" required>
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-outline-dark">Add Cake</button>
+
+        </form>
+    </div>
+
+    </div>
+
+
+
+</main><!-- /.container -->
+
+
+
+</body></html>

@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+	<link rel="icon" th:href="@{/images/favicon.png}" >
 
-    <title>Homie</title>
+    <title>CafeWonder</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
 
@@ -23,7 +23,7 @@
 
 <body>
 
-<div th:insert="template.html :: header"></div>
+<div th:insert="~{template.html :: header}"></div>
 
 
 <main role="main" class="container">

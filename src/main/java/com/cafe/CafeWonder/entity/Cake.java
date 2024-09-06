@@ -15,8 +15,8 @@ public class Cake {
 	private String cakeName;
 	private String cakeImagePath;
 	private String description;
-	private int calories;
-	private int price;
+	private Integer calories;
+	private Integer price;
 
 	@ManyToMany
 	@JoinTable(name = "User_Cake",joinColumns = {@JoinColumn(name="cakeId")},inverseJoinColumns = {@JoinColumn(name = "userId")})
@@ -24,10 +24,9 @@ public class Cake {
 
 	public Cake()
 	{
-		
 	}
 
-	public Cake(String cakeName, String cakeImagePath, String description, int calories,int price)
+	public Cake(String cakeName, String cakeImagePath, String description, Integer calories,Integer price)
 	{
 		this.cakeName = cakeName;
 		this.cakeImagePath = cakeImagePath;
@@ -85,21 +84,21 @@ public class Cake {
 
 
 
-	public int getCalories() {
+	public Integer getCalories() {
 		return calories;
 	}
 
 
 
-	public void setCalories(int calories) {
+	public void setCalories(Integer calories) {
 		this.calories = calories;
 	}
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 

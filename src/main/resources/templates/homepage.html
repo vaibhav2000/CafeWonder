@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+	<link rel="icon" th:href="@{/images/favicon.png}" >
 	<title>CafeWonder</title>
 	<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
 	<link rel="stylesheet" 	type="text/css" th:href="@{/css/starter-template.css}" />
@@ -18,7 +18,7 @@
 <body>
 
 	
-<div th:insert="template.html :: header"></div>
+<div th:insert="~{template.html :: header}"></div>
 
 
 <main role="main" class="container">
@@ -30,8 +30,6 @@
 		<p class="lead">These are the freshly baked options for our cakes
 			<br> Start from here!
 		</p>
-
-		<p class="card-text" th:text="${cakeId}"></p>
 
 		
 	</div>
@@ -54,12 +52,17 @@
 
 						<div class="btn-group">
 
-							<div sec:authorize="isAuthenticated()">
+							<div sec:authorize="hasRole('USER')">
 								<form method="post" th:action="@{/cake/order}" >
 									<input name="cakeId" type="hidden" th:value="*{cake.getCakeId()}">
 									<button name="submit" type="submit" class ="btn btn-sm btn-outline-secondary"> Order</button>
 								</form>
-
+							</div>
+							<div sec:authorize="hasRole('ADMIN')">
+								<form method="post" th:action="@{/cake/delete}" >
+									<input name="cakeId" type="hidden" th:value="*{cake.getCakeId()}">
+									<button name="submit" type="submit" class ="btn btn-sm btn-outline-secondary"> Delete</button>
+								</form>
 							</div>
 							<div sec:authorize="isAnonymous()">
 								<a type="button" href="/login" class="btn btn-sm btn-outline-secondary">Order</a>

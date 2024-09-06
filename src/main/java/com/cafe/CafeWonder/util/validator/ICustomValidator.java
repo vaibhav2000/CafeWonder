@@ -1,4 +1,4 @@
-package com.cafe.CafeWonder.validator;
+package com.cafe.CafeWonder.util.validator;
 import com.cafe.CafeWonder.dto.UserDTO;
 
 import org.springframework.validation.BindingResult;
