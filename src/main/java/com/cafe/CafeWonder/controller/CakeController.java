@@ -3,6 +3,7 @@ package com.cafe.CafeWonder.controller;
 import com.cafe.CafeWonder.entity.Cake;
 import com.cafe.CafeWonder.entity.User;
 import com.cafe.CafeWonder.service.CakeService;
+import com.cafe.CafeWonder.service.OrderService;
 import com.cafe.CafeWonder.service.UserService;
 import com.cafe.CafeWonder.util.fileutils.IFileProcessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,17 +28,16 @@ public class CakeController {
     private UserService userService;
 
     @Autowired
+    private OrderService orderService;
+
+    @Autowired
     private IFileProcessor fileProcessor;
 
     @PostMapping("/order")
     public String orderCake(@RequestParam("cakeId") Long cakeId, Model model) {
-        Cake cake = cakeService.getCake(cakeId);
 
-        if (cake != null)
-        {
-            cakeService.orderCake(cake);
-            model.addAttribute("cake", cakeService.getCake(cakeId));
-        }
+        orderService.placeOrder(cakeId);
+        model.addAttribute("cake", cakeService.getCake(cakeId));
 
         return "ordersuccessful.html";
     }
@@ -45,7 +45,8 @@ public class CakeController {
     @PostMapping("/delete")
     public String deleteCake(@RequestParam("cakeId") Long cakeId) {
 
-        cakeService.deleteCake(cakeId);
+        if(userService.getLoggedInUser().getRole().equals("ROLE_ADMIN"))
+             cakeService.deleteCake(cakeId);
 
         return "redirect:/home";
     }
@@ -62,8 +63,6 @@ public class CakeController {
     }
 
 
-
-
     @PostMapping("/add")
     public String addCakePost(@RequestParam("name") String name,@RequestParam("description") String description,@RequestParam("calories") Integer calories,@RequestParam("price") Integer price, @RequestParam("picture") MultipartFile file) throws Exception {
 
@@ -76,8 +75,6 @@ public class CakeController {
         cake.setPrice(price);
         cake.setCakeImagePath(file.getOriginalFilename());
         cakeService.addCake(cake);
-
-
 
         return "addCakeResponse.html";
     }

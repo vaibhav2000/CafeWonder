@@ -21,23 +21,9 @@ public class CakeService {
 	@Autowired
 	private UserService userService;
 
-	public void orderCake(Cake c)
-	{
-		User user = userService.getLoggedInUser();
-
-		if(user == null)
-			return;
-
-		c.getUserList().add(user);
-
-		cakeRepository.save(c);
-		logger.info("Cake "+c.getCakeId() + " ordered by the user "+ user.getUsername());
-	}
-
 	public void addCake(Cake c)
 	{
 		cakeRepository.save(c);
-		logger.info("Cake "+c.toString() + " saved to the database");
 	}
 
 	public Cake getCake(Long cakeId)

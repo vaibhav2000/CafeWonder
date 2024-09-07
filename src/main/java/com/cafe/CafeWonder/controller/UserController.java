@@ -74,11 +74,4 @@ public class UserController {
     	return "login.html";
     }
 
-    @GetMapping("/profile")
-    public String userProfile(Model model)
-    {
-        model.addAttribute("user",userService.getLoggedInUser());
-        return "userProfile.html";
-    }
-
 }

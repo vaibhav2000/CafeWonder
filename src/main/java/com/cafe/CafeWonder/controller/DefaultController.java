@@ -30,9 +30,6 @@ public class DefaultController {
     {
         model.addAttribute("cakes",cakeService.getAllCakes());
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("name",authentication.getName());
-
         return "homepage.html";
     }
 
