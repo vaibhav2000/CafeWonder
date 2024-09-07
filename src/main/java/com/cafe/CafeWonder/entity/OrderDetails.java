@@ -37,6 +37,14 @@ public class OrderDetails {
         orderedAt = LocalDateTime.now();
     }
 
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
     public User getUser() {
         return user;
     }

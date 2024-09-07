@@ -37,24 +37,73 @@
             <div class="card mb-4 box-shadow">
                 <img class="card-img-top" th:src="@{${'/images/' + order.cake.cakeImagePath}}" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 100%; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22208%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20208%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_191aa00854c%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A11pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_191aa00854c%22%3E%3Crect%20width%3D%22208%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2266.93124771118164%22%20y%3D%22117.54000034332276%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
                 <div class="card-body">
-                    <p class="card-text" th:text="${order.cake.cakeName}"></p>
-                    <p class="card-text font-weight-light" th:text="${order.cake.description}"></p>
-                    <div class="d-flex justify-content-between align-items-center">
 
-                        <small class="text-muted">
-                            <p class="same">Rs.</p> <p class="card-text same"  th:text="${order.cake.price}"></p> <p class="same">/-</p>
-                        </small>
 
-                        <small class="text-muted">
-                            <p class="card-text same"  th:text="${order.cake.calories}"></p> <p class="same">Calories</p>
-                        </small>
-
+                    <div class="row">
+                        <div class="col-6">
+                            <h5 class="card-text p-1" th:text="${order.cake.cakeName}"></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p class="card-text p-1 font-weight-light" th:text="${order.cake.description}"></p>
+                        </div>
                     </div>
 
+                    <small>
+                        <div class="row">
+                            <div class="col-6">
+                                <span style="display: inline-block;" class="card-text p-1 font-weight-normal">Calories:</span>
+                                <span style="display: inline-block;" class="card-text p-1 font-weight-light" th:text="${order.cake.calories}"></span>
+                            </div>
+                            <div class="col-6">
+                                <span style="display: inline-block;" class="card-text p-1 font-weight-normal">Price:</span>
+                                <span style="display: inline-block;" class="card-text p-1 font-weight-light" th:text="${order.cake.price}"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span style="display: inline-block;" class="card-text p-1 font-weight-normal">Ordered By:</span>
+                                <span style="display: inline-block;" class="card-text p-1 font-weight-light" th:text="${order.user.username}"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span style="display: inline-block;" class="card-text p-1 font-weight-normal">Ordered On</span>
+                                <span style="display: inline-block;" class="card-text p-1 font-weight-light" th:text="${order.orderedAt}"></span>
+                            </div>
+                        </div>
 
-                    <p class="card-text font-weight-light" th:text="${order.user.username}"></p>
-                    <p class="card-text font-weight-light" th:text="${order.status}"></p>
-                    <p class="card-text font-weight-light" th:text="${order.orderedAt}"></p>
+
+                        <div class="row">
+                            <div class="col-12 col-md-8">
+                                <span style="display: inline-block;" class="card-text p-1 font-weight-normal">Order Status:</span>
+
+                                <span th:if="${order.status.toString() == 'INITIALIZED'}" style="display: inline-block;" class="card-text p-1 font-weight-light text-warning" th:text="${order.status}">    </span>
+                                <span th:if="${order.status.toString() == 'PROCESSING'}" style="display: inline-block;" class="card-text p-1 font-weight-light text-info" th:text="${order.status}">    </span>
+                                <span th:if="${order.status.toString() == 'COMPLETE'}" style="display: inline-block;" class="card-text p-1 font-weight-light text-success" th:text="${order.status}">    </span>
+
+
+                            </div>
+
+
+                            <div sec:authorize="hasRole('ADMIN')">
+                                <div class="col-6 col-md-4">
+                                    <span th:if="${order.status.toString() != 'COMPLETE'}">
+                                        <form method="post"  th:action="@{/order/update}" >
+                                            <input name="orderId" type="hidden" th:value="*{order.orderId}">
+                                            <button name="submit" type="submit" class ="btn btn-sm btn-outline-success p-1">Update</button>
+                                        </form>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </small>
+
+
+
+
+
 
                 </div>
             </div>
