@@ -1,6 +1,7 @@
 package com.cafe.CafeWonder.controller;
 
 import com.cafe.CafeWonder.entity.User;
+import com.cafe.CafeWonder.exception.customexception.InvalidUserException;
 import com.cafe.CafeWonder.service.OrderService;
 import com.cafe.CafeWonder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +21,27 @@ public class OrderController {
     @Autowired
     private UserService userService;
     @GetMapping("/orders")
-    public String getAllOrders(Model model)
+    public String getAllOrders(Model model) throws InvalidUserException
     {
-        User u = userService.getLoggedInUser();
+        User user = userService.getLoggedInUser();
 
-        if(u.getRole().equals("ROLE_ADMIN"))
+        if(user.getRole().equals("ROLE_ADMIN"))
             model.addAttribute("orders",orderService.getAllOrders());
         else
-            model.addAttribute("orders",u.getOrderDetailsList());
+            model.addAttribute("orders",user.getOrderDetailsList());
 
         return "orderlist.html";
     }
 
     @PostMapping("/order/update")
-    public String updateOrder(@RequestParam("orderId") Long orderId)
+    public String updateOrder(@RequestParam("orderId") Long orderId) throws InvalidUserException
     {
-        if(userService.getLoggedInUser().getRole().equals("ROLE_ADMIN"))
-             orderService.updateOrder(orderId);
+        User user = userService.getLoggedInUser();
+
+        if(!user.getRole().equals("ROLE_ADMIN"))
+            throw new InvalidUserException("Operation not permitted for the current user");
+
+        orderService.updateOrder(orderId);
 
         return "redirect:/orders";
     }

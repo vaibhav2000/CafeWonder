@@ -1,7 +1,9 @@
 package com.cafe.CafeWonder.service;
 
 import com.cafe.CafeWonder.entity.OrderDetails;
+import com.cafe.CafeWonder.entity.User;
 import com.cafe.CafeWonder.enums.OrderStatus;
+import com.cafe.CafeWonder.exception.customexception.InvalidUserException;
 import com.cafe.CafeWonder.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +31,13 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public void updateOrder(Long orderId)
+    public void updateOrder(Long orderId) throws InvalidUserException
     {
+        User user = userService.getLoggedInUser();
+
+        if(!user.getRole().equals("ROLE_ADMIN"))
+            throw new InvalidUserException("Operation not permitted for the current user");
+
         OrderDetails orderDetails= orderRepository.getReferenceById(orderId);
 
         if(orderDetails.getStatus().equals(OrderStatus.INITIALIZED))

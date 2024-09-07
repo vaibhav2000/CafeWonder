@@ -1,6 +1,8 @@
 package com.cafe.CafeWonder.service;
 
 import java.util.List;
+
+import com.cafe.CafeWonder.exception.customexception.InvalidUserException;
 import org.slf4j.Logger;
 
 import com.cafe.CafeWonder.entity.User;
@@ -17,13 +19,29 @@ public class CakeService {
 	private static final Logger logger = LoggerFactory.getLogger(CakeService.class);
 	@Autowired 
 	private CakeRepository cakeRepository;
-
 	@Autowired
 	private UserService userService;
 
-	public void addCake(Cake c)
+	public void addCake(Cake c) throws InvalidUserException
 	{
+		User user = userService.getLoggedInUser();
+
+		if(!user.getRole().equals("ROLE_ADMIN"))
+			throw new InvalidUserException("Operation not permitted for the current user");
+
 		cakeRepository.save(c);
+		logger.info("Cake with ID: "+ c.getCakeId() + " added to the database");
+	}
+
+	public void deleteCake(long cakeId) throws InvalidUserException
+	{
+		User user = userService.getLoggedInUser();
+
+		if(!user.getRole().equals("ROLE_ADMIN"))
+			throw new InvalidUserException("Operation not permitted for the current user");
+
+		cakeRepository.deleteById(cakeId);
+		logger.info("Cake with ID: "+ cakeId + " deleted from the database");
 	}
 
 	public Cake getCake(Long cakeId)
@@ -35,11 +53,4 @@ public class CakeService {
 	{
 		return cakeRepository.findAll();
 	}
-
-	public void deleteCake(long cakeId)
-	{
-		cakeRepository.deleteById(cakeId);
-		logger.info("Cake with ID: "+ cakeId + " deleted from the database");
-	}
-
 }

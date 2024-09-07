@@ -2,6 +2,7 @@ package com.cafe.CafeWonder.controller;
 
 import com.cafe.CafeWonder.entity.Cake;
 import com.cafe.CafeWonder.entity.User;
+import com.cafe.CafeWonder.exception.customexception.InvalidUserException;
 import com.cafe.CafeWonder.service.CakeService;
 import com.cafe.CafeWonder.service.OrderService;
 import com.cafe.CafeWonder.service.UserService;
@@ -38,25 +39,24 @@ public class CakeController {
 
         orderService.placeOrder(cakeId);
         model.addAttribute("cake", cakeService.getCake(cakeId));
-
         return "ordersuccessful.html";
     }
 
     @PostMapping("/delete")
-    public String deleteCake(@RequestParam("cakeId") Long cakeId) {
+    public String deleteCake(@RequestParam("cakeId") Long cakeId) throws InvalidUserException {
 
-        if(userService.getLoggedInUser().getRole().equals("ROLE_ADMIN"))
-             cakeService.deleteCake(cakeId);
-
+        cakeService.deleteCake(cakeId);
         return "redirect:/home";
+
     }
 
     @GetMapping("/add")
-    public String addCakeGet(Model model)
+    public String addCakeGet(Model model) throws InvalidUserException
     {
         User user = userService.getLoggedInUser();
-        if(user == null || !user.getRole().equals("ROLE_ADMIN"))
-            return "redirect:/home";
+
+        if(!user.getRole().equals("ROLE_ADMIN"))
+            throw new InvalidUserException("Operation not permitted for the current user");
 
         model.addAttribute("cake",new Cake());
         return "addCake.html";
