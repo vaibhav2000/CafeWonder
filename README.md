@@ -3,5 +3,5 @@ Web appliation for ordering cakes and coffee!
 
 
 ## Main Page
-![Screenshot](Capture.png)
+![Screenshot](Capture.PNG)
 
