@@ -5,12 +5,14 @@ import com.cafe.CafeWonder.entity.User;
 import com.cafe.CafeWonder.enums.OrderStatus;
 import com.cafe.CafeWonder.exception.customexception.InvalidUserException;
 import com.cafe.CafeWonder.repository.OrderRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class OrderService {
 
     @Autowired

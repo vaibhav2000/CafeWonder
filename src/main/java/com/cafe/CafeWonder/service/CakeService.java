@@ -3,6 +3,7 @@ package com.cafe.CafeWonder.service;
 import java.util.List;
 
 import com.cafe.CafeWonder.exception.customexception.InvalidUserException;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 
 import com.cafe.CafeWonder.entity.User;
@@ -14,6 +15,7 @@ import com.cafe.CafeWonder.entity.Cake;
 import com.cafe.CafeWonder.repository.CakeRepository;
 
 @Service
+@Transactional
 public class CakeService {
 
 	private static final Logger logger = LoggerFactory.getLogger(CakeService.class);
